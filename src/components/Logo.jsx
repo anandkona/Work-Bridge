@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, Typography } from '@mui/material';
 
-const Logo = ({ light = false, height = 44 }) => {
+const Logo = ({ light = false, height = 52 }) => {
   return (
     <Box
       component="a"
@@ -20,13 +20,14 @@ const Logo = ({ light = false, height = 44 }) => {
         alt="Work Bridge Logo"
         sx={{
           height: height,
-          width: 'auto',
+          width: height,
           objectFit: 'contain',
-          borderRadius: '8px',
+          borderRadius: '10px',
           flexShrink: 0,
           backgroundColor: '#FFFFFF',
-          p: 0.3,
-          boxShadow: '0 2px 8px rgba(0,0,0,0.08)',
+          p: 0.5,
+          border: '2px solid #153B70',
+          boxShadow: '0 2px 10px rgba(21, 59, 112, 0.15)',
         }}
       />
 
