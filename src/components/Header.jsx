@@ -310,6 +310,8 @@ const Header = () => {
         position="sticky"
         elevation={scrolled ? 4 : 0}
         sx={{
+          top: 0,
+          zIndex: 1100,
           backgroundColor: '#FFFFFF',
           color: '#1E293B',
           borderBottom: scrolled ? 'none' : '1px solid #E2E8F0',
