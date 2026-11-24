@@ -8,6 +8,9 @@ html {
   scroll-behavior: smooth;
   font-size: 16px;
   scroll-padding-top: 90px;
+  overflow-x: hidden;
+  width: 100%;
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
@@ -19,6 +22,24 @@ body {
   background-color: #F8FAFC;
   color: #1E293B;
   overflow-x: hidden;
+  width: 100%;
+  position: relative;
+  touch-action: pan-y;
+}
+
+#root {
+  overflow-x: hidden;
+  width: 100%;
+}
+
+/* Prevent mobile iOS/Android auto-zoom on form inputs */
+input, select, textarea {
+  font-size: 16px !important;
+}
+@media (min-width: 600px) {
+  input, select, textarea {
+    font-size: 0.85rem !important;
+  }
 }
 
 a {
