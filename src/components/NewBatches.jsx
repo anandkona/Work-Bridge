@@ -72,8 +72,17 @@ const NewBatches = () => {
           sx={{
             borderRadius: 2.5,
             border: '1.5px solid #E2E8F0',
-            overflow: 'hidden',
+            overflowX: 'auto',
+            WebkitOverflowScrolling: 'touch',
+            touchAction: 'pan-x pan-y',
             boxShadow: '0 4px 16px rgba(15, 23, 42, 0.05)',
+            '&::-webkit-scrollbar': {
+              height: '7px',
+            },
+            '&::-webkit-scrollbar-thumb': {
+              backgroundColor: '#CBD5E1',
+              borderRadius: '4px',
+            },
           }}
         >
           <Table sx={{ minWidth: 650 }} aria-label="new batches table">
