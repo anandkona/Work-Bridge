@@ -572,7 +572,7 @@ const Header = () => {
         }}
       >
         <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
-          <Logo height={36} />
+          <Logo height={38} />
           <IconButton onClick={handleDrawerToggle} sx={{ color: '#64748B' }}>
             <CloseIcon />
           </IconButton>

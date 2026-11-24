@@ -27,7 +27,7 @@ const Logo = ({ light = false, height = 60 }) => {
           backgroundColor: '#FFFFFF',
           p: 0.5,
           // border: '2px solid #153B70',
-          boxShadow: '0 2px 10px rgba(21, 59, 112, 0.15)',
+          boxShadow: '5px 5px 5px rgba(21, 59, 112, 0.15)',
         }}
       />
 
