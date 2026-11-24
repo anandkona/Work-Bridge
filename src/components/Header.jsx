@@ -99,20 +99,34 @@ const Header = () => {
   };
 
   const scrollToSection = (href) => {
+    // 1. Immediately close mobile drawer and dropdown menu
     setMobileOpen(false);
-    handleTrainingMenuClose();
+    setTrainingAnchorEl(null);
 
     if (!href || href === '#') return;
 
-    // Update the browser URL hash without causing a page jump
-    if (window.history.pushState) {
-      window.history.pushState(null, null, href);
-    } else {
-      window.location.hash = href;
+    // 2. Normalize target ID
+    let targetId = href.startsWith('#') ? href.substring(1) : href;
+
+    // ID Aliases & fallbacks
+    if (targetId === 'contact' || targetId === 'contact-info') {
+      targetId = 'contact-form';
+    } else if (targetId === 'placements') {
+      targetId = 'why-choose';
     }
 
-    const targetId = href.startsWith('#') ? href.substring(1) : href;
+    // 3. Update URL hash cleanly
+    try {
+      if (window.history.pushState) {
+        window.history.pushState(null, null, `#${targetId}`);
+      } else {
+        window.location.hash = `#${targetId}`;
+      }
+    } catch (e) {
+      // ignore
+    }
 
+    // 4. Handle Top / Home
     if (targetId === 'home' || targetId === 'hero') {
       window.scrollTo({
         top: 0,
@@ -121,36 +135,33 @@ const Header = () => {
       return;
     }
 
-    let element = document.getElementById(targetId);
+    // 5. Scroll to target element with safety delay to let mobile drawer finish closing
+    const executeScroll = () => {
+      const element = document.getElementById(targetId);
+      if (element) {
+        const headerOffset = 85;
+        const elementPosition = element.getBoundingClientRect().top;
+        const offsetPosition = Math.max(0, elementPosition + window.pageYOffset - headerOffset);
 
-    // Fallbacks if ID variations exist
-    if (!element) {
-      if (targetId === 'contact-form' || targetId === 'contact' || targetId === 'contact-info') {
-        element = document.getElementById('contact-form') || document.getElementById('contact-info');
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: 'smooth',
+        });
+
+        // Focus first input field if scrolling to contact form
+        if (targetId === 'contact-form') {
+          setTimeout(() => {
+            const firstInput = document.getElementById('contact-fullName');
+            if (firstInput) {
+              firstInput.focus();
+            }
+          }, 500);
+        }
       }
-    }
+    };
 
-    if (element) {
-      // Calculate sticky header height offset
-      const headerOffset = 90;
-      const elementPosition = element.getBoundingClientRect().top;
-      const offsetPosition = Math.max(0, elementPosition + window.pageYOffset - headerOffset);
-
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: 'smooth',
-      });
-
-      // If enrolling or contacting, focus the first input field smoothly
-      if (targetId === 'contact-form' || targetId === 'contact' || targetId === 'contact-info') {
-        setTimeout(() => {
-          const firstInput = document.getElementById('contact-fullName');
-          if (firstInput) {
-            firstInput.focus();
-          }
-        }, 600);
-      }
-    }
+    // Execute scroll slightly deferred so mobile drawer close transition doesn't lock scroll
+    setTimeout(executeScroll, 120);
   };
 
   // Support direct loading with URL hash (e.g. http://localhost:3000/#hero or #contact-form)
