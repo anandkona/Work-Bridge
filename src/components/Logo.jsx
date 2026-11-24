@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, Typography } from '@mui/material';
 
-const Logo = ({ light = false, height = 52 }) => {
+const Logo = ({ light = false, height = 60 }) => {
   return (
     <Box
       component="a"
@@ -26,7 +26,7 @@ const Logo = ({ light = false, height = 52 }) => {
           flexShrink: 0,
           backgroundColor: '#FFFFFF',
           p: 0.5,
-          border: '2px solid #153B70',
+          // border: '2px solid #153B70',
           boxShadow: '0 2px 10px rgba(21, 59, 112, 0.15)',
         }}
       />
